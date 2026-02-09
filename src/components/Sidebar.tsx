@@ -3,7 +3,7 @@ import "./Sidebar.css";
 
 function Sidebar() {
   return (
-    <aside>
+    <aside className="sidebar">
       <div className="logoDiv">
         <p>logo</p>
         <img src="https://placehold.co/50" alt="" className="logoImg" />
@@ -15,7 +15,15 @@ function Sidebar() {
             isActive ? "nav-link active" : "nav-link"
           }
         >
-          Main
+          Dashboard
+        </NavLink>
+        <NavLink
+          to="/calendar"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Calendar
         </NavLink>
         <NavLink
           to="/settings"

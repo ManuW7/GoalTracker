@@ -1,0 +1,11 @@
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid black;
+  padding: 10px;
+  grid-column-gap: 10px;
+}
+
+.dashboardDiv h1 {
+  margin-bottom: 50px;
+}

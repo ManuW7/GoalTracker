@@ -1,0 +1,17 @@
+.weekday {
+  background-color: green;
+  color: white;
+}
+
+.dayDiv div {
+  padding: 10px;
+}
+
+.dayDiv {
+  border: 1px solid black;
+  width: 150px;
+}
+
+.dayContent {
+  min-height: 150px;
+}

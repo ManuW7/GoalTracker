@@ -1,7 +1,7 @@
 function Notifications() {
   return (
     <>
-      <h1>noti</h1>
+      <h1>Notifications</h1>
     </>
   );
 }
