@@ -4,6 +4,7 @@ import Settings from "./components/Settings";
 import Dashboard from "./components/Dashboard";
 import Notifications from "./components/Notifications";
 import Layout from "./components/Layout";
+import Calendar from "./components/Calendar";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             path="notifications"
             element={<Notifications></Notifications>}
           ></Route>
+          <Route path="calendar" element={<Calendar></Calendar>}></Route>
         </Route>
       </Routes>
     </>

@@ -4,11 +4,13 @@ import "./Layout.css";
 
 function Layout() {
   return (
-    <div className="layout">
-      <Sidebar></Sidebar>
-      <main>
-        <Outlet></Outlet>
-      </main>
+    <div className="layoutBorder">
+      <div className="layout">
+        <Sidebar></Sidebar>
+        <main>
+          <Outlet></Outlet>
+        </main>
+      </div>
     </div>
   );
 }

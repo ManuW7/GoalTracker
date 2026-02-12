@@ -1,11 +1,18 @@
+:root {
+  --black: #23262b;
+  --red: #fc8b77;
+  --yellow: #fbdc79;
+  --white: #f4f1ec;
+  --beige: #cfc6b5;
+}
+
 aside {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   padding: 30px;
   justify-content: space-between;
-  min-width: 300px;
   position: relative;
+  align-items: center;
 }
 
 .sidebar::after {
@@ -14,28 +21,45 @@ aside {
   top: 30px;
   bottom: 30px;
   right: 0;
-
   width: 2px;
-  background-color: rgba(39, 122, 6, 0.434);
+  background-color: var(--black);
 }
 
 aside nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  background-color: white;
+  padding: 20px 10px;
+  border-radius: 35px;
 }
 
 .nav-link {
+  display: flex;
   border: 3px solid transparent;
-  min-width: 150px;
   text-decoration: none;
   color: white;
-  background-color: black;
-  border-radius: 30px;
+  background-color: var(--black);
+  border-radius: 50%;
   font-family: Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  width: 100%;
+}
+
+.nav-link .icon {
+  width: 25px;
+  height: 25px;
+}
+
+.nav-link:hover .icon {
+  fill: var(--yellow);
+}
+
+.nav-link:hover .icon path {
+  stroke: var(--black);
 }
 
 .nav-link:hover {
@@ -46,32 +70,41 @@ aside nav {
 
 .nav-link:active {
   transform: translateY(2px);
-  box-shadow: 4px 4px rgba(0, 0, 255, 0.233);
-}
-
-.logoDiv {
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 30px;
-  min-width: 150px;
-}
-
-.logoDiv img {
-  max-width: 100px;
 }
 
 .accountDiv {
-  border: 1px solid black;
   padding: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  border-radius: 30px;
+  align-items: center;
+  border-radius: 40px;
+  background-color: white;
+  gap: 20px;
+}
+
+.accountDiv button {
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid var(--yellow);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accountDiv button svg {
+  width: 30px;
+  height: 30px;
+}
+
+.accountDiv button:hover {
+  border: 3px solid black;
+  cursor: pointer;
 }
 
 .accountDiv img {
-  max-width: 50px;
+  border: 3px solid var(--yellow);
+  width: 56px;
   border-radius: 50%;
 }
