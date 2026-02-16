@@ -21,7 +21,7 @@ aside {
   top: 30px;
   bottom: 30px;
   right: 0;
-  width: 2px;
+  width: 1px;
   background-color: var(--black);
 }
 
@@ -68,10 +68,6 @@ aside nav {
   border: 3px solid black;
 }
 
-.nav-link:active {
-  transform: translateY(2px);
-}
-
 .accountDiv {
   padding: 10px;
   display: flex;
@@ -107,4 +103,20 @@ aside nav {
   border: 3px solid var(--yellow);
   width: 56px;
   border-radius: 50%;
+}
+
+.nav-link.active {
+  transform: translateY(2px);
+  background-color: white;
+  color: black;
+  border: 3px solid black;
+  cursor: default;
+}
+
+.nav-link.active .icon {
+  fill: var(--red);
+}
+
+.nav-link.active .icon path {
+  stroke: var(--black);
 }

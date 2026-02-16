@@ -8,7 +8,7 @@ function Day(props: DayProps) {
   return (
     <div className="dayDiv">
       <div className="weekday">{props.weekday}</div>
-      <div className="dayContent">somecontent</div>
+      <div className="dayContent"></div>
     </div>
   );
 }

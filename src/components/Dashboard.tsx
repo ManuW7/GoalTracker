@@ -5,18 +5,17 @@ import HotStreakWidget from "./HotStreakWidget";
 function Dashboard() {
   return (
     <div className="dashboardDiv">
-      <h1>Dashboard</h1>
-      <h2>Your week</h2>
-      <div className="calendarGrid">
-        <Day weekday="Monday"></Day>
-        <Day weekday="Tuesday"></Day>
-        <Day weekday="Wednesday"></Day>
-        <Day weekday="Thursday"></Day>
-        <Day weekday="Friday"></Day>
-        <Day weekday="Saturday"></Day>
-        <Day weekday="Sunday"></Day>
-      </div>
-      <div className="widgetsDiv">
+      <h1>Your recent activity</h1>
+      <div className="dashboardGridDiv">
+        <div className="calendarGrid">
+          <Day weekday="M"></Day>
+          <Day weekday="T"></Day>
+          <Day weekday="W"></Day>
+          <Day weekday="T"></Day>
+          <Day weekday="F"></Day>
+          <Day weekday="S"></Day>
+          <Day weekday="S"></Day>
+        </div>
         <HotStreakWidget></HotStreakWidget>
       </div>
     </div>
