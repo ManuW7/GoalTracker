@@ -1,0 +1,6 @@
+.weekProgressDiv {
+  background-color: white;
+  border-radius: 40px;
+  grid-column: 1 / 4;
+  grid-row: 2;
+}

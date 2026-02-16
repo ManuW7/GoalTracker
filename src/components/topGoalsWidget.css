@@ -1,0 +1,6 @@
+.topGoalsWidgetDiv {
+  grid-column: 7 / 10;
+  grid-row: 1;
+  background-color: white;
+  border-radius: 40px;
+}

@@ -1,0 +1,6 @@
+.addActionDiv {
+  grid-row: 2;
+  grid-column: 8 / 13;
+  background-color: white;
+  border-radius: 40px;
+}

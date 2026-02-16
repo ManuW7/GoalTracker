@@ -1,0 +1,6 @@
+.addGoalsDiv {
+  background-color: white;
+  border-radius: 40px;
+  grid-column: 4 / 8;
+  grid-row: 2;
+}
