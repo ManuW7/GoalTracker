@@ -3,4 +3,23 @@
   grid-row: 1;
   background-color: white;
   border-radius: 40px;
+  padding: 20px;
+}
+
+.goalsContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.goal {
+  width: 100%;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
