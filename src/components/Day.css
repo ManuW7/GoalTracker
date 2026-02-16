@@ -10,14 +10,19 @@
   min-width: 60px;
   border-radius: 40px;
   margin-top: 10px;
-}
-
-.dayContent {
-  min-height: 150px;
-}
-
-.dayDiv {
+  min-height: 175px;
   display: flex;
+  flex-direction: column-reverse;
+  padding: 10px 5px;
+  align-items: center;
+}
+
+.dayDiv .actionItem {
+  width: 40px;
+  height: 40px;
+  background-color: var(--blue);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-direction: column;
+  border-radius: 50%;
 }

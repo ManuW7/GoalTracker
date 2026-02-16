@@ -2,17 +2,26 @@
   grid-column: 10 / 13;
   grid-row: 1 / 2;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
   background-color: white;
   border-radius: 40px;
 }
 
 .hot-streak-widget {
-  background-color: var(--black);
-  color: white;
-  border-radius: 50%;
+  background-color: var(--yellow);
+  height: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hot-streak-widget .daysInRow {
+  font-size: 50px;
+  color: white;
 }

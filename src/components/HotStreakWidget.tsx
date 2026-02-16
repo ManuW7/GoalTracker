@@ -3,7 +3,10 @@ import "./HotStreakWidget.css";
 function HotStreakWidget() {
   return (
     <div className="hotStreakWidgetDiv">
-      <div className="hot-streak-widget ">12 часов</div>
+      <h3>Hot Streak</h3>
+      <div className="hot-streak-widget ">
+        <p className="daysInRow">10</p>
+      </div>
     </div>
   );
 }
