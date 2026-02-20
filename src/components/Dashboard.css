@@ -8,10 +8,6 @@
   grid-row: 1 / 2;
 }
 
-.dashboardDiv h1 {
-  margin-bottom: 30px;
-}
-
 .dashboardGridDiv {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -24,4 +20,31 @@
 
 .dashboardDiv {
   width: 100%;
+}
+
+.headersDiv {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.headersDiv h3 {
+  margin-left: 50px;
+  margin-top: 10px;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.headersDiv p {
+  min-width: 150px;
+  text-align: center;
+}
+
+.headersDiv h3 button {
+  font-size: 30px;
+  background-color: white;
+  border-radius: 40px;
+  padding: 0 10px;
 }
