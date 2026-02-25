@@ -1,0 +1,18 @@
+.dashboardGridDiv {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 240px);
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  gap: 40px;
+}
+
+.dashboardDiv {
+  width: 100%;
+}
+
+.dashboardTitle {
+  font-size: 30px;
+  margin-bottom: 30px;
+}

@@ -1,10 +1,10 @@
 import "./Dashboard.css";
-import Day from "./Day";
 import HotStreakWidget from "./HotStreakWidget";
 import AddActions from "./AddActions";
 import TopGoalsWidget from "./TopGoalsWidget";
 import WeekProgressGraph from "./WeekProgressGraph";
 import AddGoals from "./AddGoals";
+import CalendarWidget from "./CalendarWidget";
 import { useState } from "react";
 
 function Dashboard() {
@@ -33,24 +33,14 @@ function Dashboard() {
 
   return (
     <div className="dashboardDiv">
-      <div className="headersDiv">
-        <h1>Your recent activity</h1>
-        <h3>
-          <button onClick={scrollWeekBack}>←</button>
-          <p>{`${startOfTheCurrentWeek.toLocaleDateString("en-US", { month: "short" })} ${startOfTheCurrentWeek.getDate()} - ${endOfTheCurrentWeek.toLocaleDateString("en-US", { month: "short" })} ${endOfTheCurrentWeek.getDate()}`}</p>
-          <button onClick={scrollWeekForward}>→</button>
-        </h3>
-      </div>
+      <h1 className="dashboardTitle">Your recent activity</h1>
       <div className="dashboardGridDiv">
-        <div className="calendarGrid">
-          <Day weekday="M"></Day>
-          <Day weekday="T"></Day>
-          <Day weekday="W"></Day>
-          <Day weekday="T"></Day>
-          <Day weekday="F"></Day>
-          <Day weekday="S"></Day>
-          <Day weekday="S"></Day>
-        </div>
+        <CalendarWidget
+          weekStart={startOfTheCurrentWeek}
+          weekEnd={endOfTheCurrentWeek}
+          onScrollBack={scrollWeekBack}
+          onScrollForward={scrollWeekForward}
+        />
         <TopGoalsWidget></TopGoalsWidget>
         <HotStreakWidget></HotStreakWidget>
         <WeekProgressGraph></WeekProgressGraph>
