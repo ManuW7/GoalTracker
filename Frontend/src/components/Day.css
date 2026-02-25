@@ -15,6 +15,7 @@
   flex-direction: column-reverse;
   padding: 10px 5px;
   align-items: center;
+  gap: 5px;
 }
 
 .dayDiv .actionItem {
@@ -25,4 +26,14 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+}
+
+.calendarActionDiv {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
