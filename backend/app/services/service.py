@@ -22,7 +22,7 @@ class GoalService:
         return max(_fake_db.keys()) + 1
     
     def _is_goal_valid(self, goal : Goal) -> bool:
-        if goal.date_set.tzinfo is None or goal.date.utcoffset() != timedelta(0):
+        if goal.date_set.tzinfo is None or goal.date_set.utcoffset() != timedelta(0):
             raise errors.InvalidTimezone()
         
         now = datetime.now(timezone.utc)
