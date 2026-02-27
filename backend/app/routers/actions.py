@@ -18,10 +18,10 @@ def get_action(id : int):
 def put_action(id : int, action : Action):
     return action_editor.update_action(id, action)
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=Action)
 def delete_action(id : int):
     return action_editor.delete_action(id)
 
-@router.post("/")
+@router.post("/", response_model=Action)
 def post_action(action : Action):
     return action_editor.create_action(action)

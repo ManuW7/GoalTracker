@@ -44,13 +44,14 @@ class GoalService:
             raise errors.IdNotFound()
         self._is_goal_valid(goal)
 
+        goal.id = id
         _fake_db[id] = goal
         return _fake_db[id]
     
     def delete_goal(self, id : int) -> Goal:
         if id not in _fake_db:
             raise errors.IdNotFound()
-        res = Goal(**_fake_db[id])
+        res = _fake_db[id].model_copy()
         del _fake_db[id]
         return res
     
@@ -118,6 +119,7 @@ class ActionService:
             raise errors.IdNotFound()
         self._is_action_valid(action)
 
+        action.id = id
         _action_db[id] = action
         return _action_db[id]
     
@@ -125,7 +127,7 @@ class ActionService:
         if id not in _action_db:
             raise errors.IdNotFound()
         
-        res = Action(**_action_db[id])
+        res = _action_db[id].model_copy()
         del _action_db[id]
         return res
     
@@ -136,6 +138,6 @@ class ActionService:
 
         new_id = self._get_uniq_id()
         action.id = new_id
-        _fake_db[new_id] = action
+        _action_db[new_id] = action
 
         return action

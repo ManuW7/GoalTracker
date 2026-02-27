@@ -17,10 +17,10 @@ def get_goal(id : int):
 def put_goal(id : int, goal : Goal):
     return goal_editor.update_goal(id, goal)
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=Goal)
 def delete_goal(id : int):
     return goal_editor.delete_goal(id)
 
-@router.post("/")
+@router.post("/", response_model=Goal)
 def post_goal(goal : Goal):
     return goal_editor.create_goal(goal)
