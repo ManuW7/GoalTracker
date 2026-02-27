@@ -1,7 +1,7 @@
 import "./CalendarWidget.css";
 import Day from "./Day";
-import { actions, goals } from "../data/data";
 import type { Action, Goal } from "../data/data";
+import { useEffect, useState } from "react";
 
 function groupActionsByWeekday(actions: Action[]) {
   const map = new Map<number, Action[]>();
@@ -25,7 +25,7 @@ function createGoalsMap(goals: Goal[]) {
   const map = new Map<number, Goal>();
 
   goals.forEach((g) => {
-    map.set(g.ID, g);
+    map.set(g.id, g);
   });
 
   return map;
@@ -34,6 +34,7 @@ function createGoalsMap(goals: Goal[]) {
 interface CalendarWidgetProps {
   weekStart: Date;
   weekEnd: Date;
+  goals: Goal[];
   onScrollBack: () => void;
   onScrollForward: () => void;
 }
@@ -44,13 +45,42 @@ const weekDayLabels = ["M", "T", "W", "T", "F", "S", "S"];
 function CalendarWidget({
   weekStart,
   weekEnd,
+  goals,
   onScrollBack,
   onScrollForward,
 }: CalendarWidgetProps) {
-  const weekActions = actions.filter((a) => {
-    return a.date < weekEnd && a.date > weekStart;
-  });
-  const weekdaysMap = groupActionsByWeekday(weekActions);
+  const [actions, setActions] = useState<Action[]>([]);
+
+  useEffect(() => {
+    const fromDate = weekStart.toISOString();
+    const toDate = weekEnd.toISOString();
+    async function fetchActions() {
+      try {
+        const response = await fetch(
+          `http://83.136.235.118:8000/actions?start=${fromDate}&finish=${toDate}`,
+        );
+
+        if (!response.ok) {
+          throw new Error("NetworkError");
+        }
+
+        const data = await response.json();
+
+        const parsed: Action[] = data.map((a: any) => ({
+          ...a,
+          date: new Date(a.date),
+        }));
+
+        setActions(parsed);
+      } catch (err) {
+        console.error(err);
+        setActions([]);
+      }
+    }
+    fetchActions();
+  }, [weekStart, weekEnd]);
+
+  const weekdaysMap = groupActionsByWeekday(actions);
   const goalsMap = createGoalsMap(goals);
 
   return (
@@ -58,6 +88,7 @@ function CalendarWidget({
       <div className="calendarGrid">
         {weekDaysOrder.map((wd, index) => (
           <Day
+            key={index}
             weekday={weekDayLabels[index]}
             actions={weekdaysMap.get(wd) ?? []}
             goalsMap={goalsMap}

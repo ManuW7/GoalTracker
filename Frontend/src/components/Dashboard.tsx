@@ -5,7 +5,8 @@ import TopGoalsWidget from "./TopGoalsWidget";
 import WeekProgressGraph from "./WeekProgressGraph";
 import AddGoals from "./AddGoals";
 import CalendarWidget from "./CalendarWidget";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Goal } from "../data/data";
 
 function Dashboard() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -14,6 +15,34 @@ function Dashboard() {
   startOfTheCurrentWeek.setDate(currentDate.getDate() - (currentWeekDay - 1));
   const endOfTheCurrentWeek = new Date(currentDate);
   endOfTheCurrentWeek.setDate(currentDate.getDate() + 7 - currentWeekDay);
+
+  const [goals, setGoals] = useState<Goal[]>([]);
+
+  useEffect(() => {
+    async function fetchGoals() {
+      try {
+        const response = await fetch(`http://83.136.235.118:8000/goals`);
+
+        if (!response.ok) {
+          throw new Error("NetworkError");
+        }
+
+        const data = await response.json();
+
+        const parsed: Goal[] = data.map((g: any) => ({
+          ...g,
+          date_set: new Date(g.date_set),
+        }));
+
+        setGoals(parsed);
+      } catch (err) {
+        console.error(err);
+        setGoals([]);
+      }
+    }
+
+    fetchGoals();
+  }, []);
 
   function scrollWeekBack(): void {
     setCurrentDate((prevDate) => {
@@ -40,6 +69,7 @@ function Dashboard() {
           weekEnd={endOfTheCurrentWeek}
           onScrollBack={scrollWeekBack}
           onScrollForward={scrollWeekForward}
+          goals={goals}
         />
         <TopGoalsWidget></TopGoalsWidget>
         <HotStreakWidget></HotStreakWidget>

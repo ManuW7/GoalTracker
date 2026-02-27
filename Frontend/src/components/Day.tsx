@@ -12,10 +12,11 @@ function Day(props: DayProps) {
     <div className="dayDiv">
       <div className="weekday">{props.weekday}</div>
       <div className="dayContent">
-        {props.actions.map((a) => (
+        {props.actions.map((a, index) => (
           <div
-            style={{ backgroundColor: props.goalsMap.get(a.goalID)?.color }}
+            style={{ backgroundColor: props.goalsMap.get(a.goal_id)?.color }}
             className="calendarActionDiv"
+            key={index}
           >
             ?
           </div>
