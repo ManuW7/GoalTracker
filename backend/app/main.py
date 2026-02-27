@@ -14,12 +14,19 @@ origins = [
     "http://127.0.0.1:5173",
 ]
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,          # какие origin разрешены
-    allow_credentials=True,         # разрешать cookies / auth
-    allow_methods=["*"],            # разрешить все методы (GET, POST и т.д.)
-    allow_headers=["*"],            # разрешить все заголовки
+    allow_origins=origins,                 # конкретные источники
+    allow_credentials=True,                # разрешаем cookies / auth
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "Authorization",
+        "Content-Type",
+        "Accept",
+        "Origin",
+        "X-Requested-With",
+    ],
 )
 
 @app.exception_handler(AppError)
