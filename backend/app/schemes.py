@@ -1,11 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 
 class Goal(BaseModel):
     id: int
     name: str
     description: str
-    color: str
+    color: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
     date_set: datetime
     user_id: int
 

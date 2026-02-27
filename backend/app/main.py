@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
+from app.services.errors import AppError
 from app.routers import goals, actions
 
 app = FastAPI()
@@ -19,3 +21,16 @@ app.add_middleware(
     allow_methods=["*"],            # разрешить все методы (GET, POST и т.д.)
     allow_headers=["*"],            # разрешить все заголовки
 )
+
+@app.exception_handler(AppError)
+async def app_error_handler(request: Request, exc: AppError):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "field": exc.field,
+            }
+        },
+    )
