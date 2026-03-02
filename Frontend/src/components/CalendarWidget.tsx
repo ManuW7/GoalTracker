@@ -1,7 +1,6 @@
 import "./CalendarWidget.css";
 import Day from "./Day";
 import type { Action, Goal } from "../data/data";
-import { useEffect, useState } from "react";
 
 function groupActionsByWeekday(actions: Action[]) {
   const map = new Map<number, Action[]>();
@@ -35,8 +34,10 @@ interface CalendarWidgetProps {
   weekStart: Date;
   weekEnd: Date;
   goals: Goal[];
+  actions: Action[];
   onScrollBack: () => void;
   onScrollForward: () => void;
+  isLoading: boolean;
 }
 
 const weekDaysOrder = [1, 2, 3, 4, 5, 6, 0];
@@ -46,40 +47,11 @@ function CalendarWidget({
   weekStart,
   weekEnd,
   goals,
+  actions,
   onScrollBack,
   onScrollForward,
+  isLoading,
 }: CalendarWidgetProps) {
-  const [actions, setActions] = useState<Action[]>([]);
-
-  useEffect(() => {
-    const fromDate = weekStart.toISOString();
-    const toDate = weekEnd.toISOString();
-    async function fetchActions() {
-      try {
-        const response = await fetch(
-          `http://83.136.235.118:8000/actions?start=${fromDate}&finish=${toDate}`,
-        );
-
-        if (!response.ok) {
-          throw new Error("NetworkError");
-        }
-
-        const data = await response.json();
-
-        const parsed: Action[] = data.map((a: any) => ({
-          ...a,
-          date: new Date(a.date),
-        }));
-
-        setActions(parsed);
-      } catch (err) {
-        console.error(err);
-        setActions([]);
-      }
-    }
-    fetchActions();
-  }, [weekStart, weekEnd]);
-
   const weekdaysMap = groupActionsByWeekday(actions);
   const goalsMap = createGoalsMap(goals);
 
@@ -92,6 +64,7 @@ function CalendarWidget({
             weekday={weekDayLabels[index]}
             actions={weekdaysMap.get(wd) ?? []}
             goalsMap={goalsMap}
+            isLoading={isLoading}
           ></Day>
         ))}
       </div>

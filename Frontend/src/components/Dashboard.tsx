@@ -6,7 +6,7 @@ import WeekProgressGraph from "./WeekProgressGraph";
 import AddGoals from "./AddGoals";
 import CalendarWidget from "./CalendarWidget";
 import { useEffect, useState } from "react";
-import type { Goal } from "../data/data";
+import type { Goal, Action } from "../data/data";
 
 function Dashboard() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -17,6 +17,8 @@ function Dashboard() {
   endOfTheCurrentWeek.setDate(currentDate.getDate() + 7 - currentWeekDay);
 
   const [goals, setGoals] = useState<Goal[]>([]);
+  const [actions, setActions] = useState<Action[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchGoals() {
@@ -44,6 +46,39 @@ function Dashboard() {
     fetchGoals();
   }, []);
 
+  useEffect(() => {
+    const fromDate = startOfTheCurrentWeek.toISOString();
+    const toDate = endOfTheCurrentWeek.toISOString();
+    
+    async function fetchActions() {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `http://83.136.235.118:8000/actions?start=${fromDate}&finish=${toDate}`,
+        );
+
+        if (!response.ok) {
+          throw new Error("NetworkError");
+        }
+
+        const data = await response.json();
+
+        const parsed: Action[] = data.map((a: any) => ({
+          ...a,
+          date: new Date(a.date),
+        }));
+
+        setActions(parsed);
+      } catch (err) {
+        console.error(err);
+        setActions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchActions();
+  }, [currentDate]);
+
   function scrollWeekBack(): void {
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
@@ -70,12 +105,14 @@ function Dashboard() {
           onScrollBack={scrollWeekBack}
           onScrollForward={scrollWeekForward}
           goals={goals}
+          actions={actions}
+          isLoading={isLoading}
         />
         <TopGoalsWidget></TopGoalsWidget>
         <HotStreakWidget></HotStreakWidget>
         <WeekProgressGraph></WeekProgressGraph>
-        <AddGoals></AddGoals>
-        <AddActions></AddActions>
+        <AddGoals setGoals={setGoals}></AddGoals>
+        <AddActions goals={goals} setActions={setActions}></AddActions>
       </div>
     </div>
   );

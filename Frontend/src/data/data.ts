@@ -3,7 +3,7 @@ export type Goal = {
   name: string;
   description: string;
   color: string;
-  dateSet: Date;
+  date_set: Date;
   user_id: number;
 };
 
