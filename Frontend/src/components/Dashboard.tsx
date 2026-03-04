@@ -9,12 +9,16 @@ import { useEffect, useState } from "react";
 import type { Goal, Action } from "../data/data";
 
 function Dashboard() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const [currentDate, setCurrentDate] = useState(today);
   const currentWeekDay = currentDate.getDay() || 7;
   const startOfTheCurrentWeek = new Date(currentDate);
   startOfTheCurrentWeek.setDate(currentDate.getDate() - (currentWeekDay - 1));
+  startOfTheCurrentWeek.setHours(0, 0, 0, 0);
   const endOfTheCurrentWeek = new Date(currentDate);
   endOfTheCurrentWeek.setDate(currentDate.getDate() + 7 - currentWeekDay);
+  endOfTheCurrentWeek.setHours(23, 59, 59, 999);
 
   const [goals, setGoals] = useState<Goal[]>([]);
   const [actions, setActions] = useState<Action[]>([]);
