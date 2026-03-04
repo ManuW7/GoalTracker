@@ -1,60 +1,9 @@
-.weekday {
-  text-align: center;
-  padding-bottom: 15px;
-  border-radius: 40px;
+.dayDiv p {
+  font-family: "NTSomic-Medium";
+  font-size: 23px;
+  font-weight: 500;
 }
 
-.dayDiv .dayContent {
-  background-color: white;
-  width: 100%;
-  min-width: 60px;
-  border-radius: 40px;
-  margin-top: 10px;
-  min-height: 175px;
-  display: flex;
-  flex-direction: column-reverse;
-  padding: 10px 5px;
-  align-items: center;
-  gap: 5px;
-}
-
-.dayDiv .actionItem {
-  width: 40px;
-  height: 40px;
-  background-color: var(--blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.calendarActionDiv {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 50%;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.skeletonAction {
-  width: 40px;
-  height: 40px;
+.dayDiv .date {
+  margin-top: 15px;
 }

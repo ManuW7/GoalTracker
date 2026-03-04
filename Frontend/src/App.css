@@ -1,7 +1,14 @@
+:root {
+  --black: #23262b;
+  --dark-beige: #cfc6b5;
+  --navy: #2f4157;
+  --beige: #f4efeb;
+  --light-blue: #c7d9e5;
+  --teal: #577c8e;
+}
+
 main {
-  padding-top: 30px;
-  margin-left: 50px;
-  padding-right: 50px;
+  padding: 30px 30px 30px 0;
   width: 100%;
   height: 100%;
 }

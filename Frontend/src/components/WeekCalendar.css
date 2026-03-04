@@ -1,0 +1,107 @@
+.weekCalendarDiv {
+  background-color: white;
+  grid-column: 1 / 6;
+  grid-row: 1 / 4;
+  border-radius: 40px;
+  padding: 10px 20px;
+  gap: 30px;
+}
+
+.weekCalendarDiv .monthYearContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  flex: 1;
+}
+
+.weekCalendarDiv h3 {
+  font-family: "NTSomic";
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.weekCalendarDiv h3.secondMonth {
+  font-size: 24px;
+}
+
+.weekCalendarDiv .controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.weekCalendarDiv .addGoalButton {
+  border-radius: 50%;
+  background-color: var(--dark-beige);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+}
+
+.weekCalendarDiv .addGoalButton:hover {
+  background-color: var(--beige);
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.weekCalendarDiv .addGoalButton:active {
+  background-color: var(--dark-beige);
+}
+
+.weekCalendarDiv .arrowButtonsDiv button {
+  background-color: transparent;
+  font-size: 30px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weekCalendarDiv .arrowButtonsDiv button {
+  cursor: pointer;
+}
+
+.weekCalendarDiv .arrowButtonsDiv button img {
+  width: 15px;
+  transition: transform 0.2s ease;
+}
+
+.weekCalendarDiv .arrowButtonsDiv button:first-of-type:hover img {
+  transform: translateX(-3px);
+}
+
+.weekCalendarDiv .arrowButtonsDiv button:last-of-type:hover img {
+  transform: translateX(3px);
+}
+
+.weekCalendarDiv .arrowButtonsDiv button:first-of-type:active img {
+  transform: translateX(-5px);
+}
+
+.weekCalendarDiv .arrowButtonsDiv button:last-of-type:active img {
+  transform: translateX(5px);
+}
+
+.weekCalendarDiv .arrowButtonsDiv {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  left: 0;
+}
+
+.weekDisplayDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

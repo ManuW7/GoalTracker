@@ -1,32 +1,18 @@
 import "./Day.css";
-import type { Action, Goal } from "../data/data";
 
-type DayProps = {
-  weekday: string;
-  actions: Action[];
-  goalsMap: Map<number, Goal>;
-  isLoading: boolean;
-};
+interface dayProps {
+  day: Date;
+}
 
-function Day(props: DayProps) {
+const weekDays = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
+function Day(props: dayProps) {
   return (
     <div className="dayDiv">
-      <div className="weekday">{props.weekday}</div>
-      <div className="dayContent">
-        {props.isLoading ? (
-          <div className="skeleton skeletonAction"></div>
-        ) : (
-          props.actions.map((a, index) => (
-            <div
-              style={{ backgroundColor: props.goalsMap.get(a.goal_id)?.color }}
-              className="calendarActionDiv"
-              key={index}
-            >
-              ?
-            </div>
-          ))
-        )}
-      </div>
+      <p className="weekday">{weekDays[props.day.getDay()]}</p>
+      <p className="date">
+        {props.day.getDate().toLocaleString("ru", { minimumIntegerDigits: 2 })}
+      </p>
     </div>
   );
 }
