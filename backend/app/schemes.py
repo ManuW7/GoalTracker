@@ -1,12 +1,12 @@
-from pydantic import BaseModel
-from datetime import date
+from pydantic import BaseModel, Field
+from datetime import datetime
 
 class Goal(BaseModel):
     id: int
     name: str
     description: str
-    color: str
-    date_set: date
+    color: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
+    date_set: datetime
     user_id: int
 
 class Action(BaseModel):
@@ -14,5 +14,5 @@ class Action(BaseModel):
   name: str
   goal_id: int
   description: str
-  date: date
+  date: datetime
   user_id: int
