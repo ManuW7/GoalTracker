@@ -1,7 +1,10 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
+from sqlalchemy import text
 
+from app.db.session import get_db
 from app.services.errors import AppError
 from app.routers import goals, actions
 
@@ -41,3 +44,8 @@ async def app_error_handler(request: Request, exc: AppError):
             }
         },
     )
+
+@app.get("/db-check")
+def db_check(db: Session = Depends(get_db)):
+    value = db.execute(text("SELECT 1")).scalar_one()
+    return {"select_1": value}

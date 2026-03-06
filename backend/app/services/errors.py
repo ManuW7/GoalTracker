@@ -82,3 +82,70 @@ class UserNotFound(AppError):
             message="User ID does not exist",
             field="user_id",
         )
+
+# ---------- Database errors ----------
+
+# 8) нарушение внешнего ключа
+class ForeignKeyViolation(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="foreign_key_violation",
+            message="Referenced object does not exist",
+            field=None,
+        )
+
+
+# 9) нарушение уникальности
+class UniqueViolation(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=409,
+            code="unique_violation",
+            message="Object with these parameters already exists",
+            field=None,
+        )
+
+
+# 10) обязательное поле не передано
+class NotNullViolation(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="not_null_violation",
+            message="Required field is missing",
+            field=None,
+        )
+
+
+# 11) нарушение CHECK ограничения
+class CheckViolation(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="check_violation",
+            message="Value does not satisfy database constraint",
+            field=None,
+        )
+
+
+# 12) общая ошибка целостности данных
+class DataIntegrityError(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="data_integrity_error",
+            message="Database integrity constraint violated",
+            field=None,
+        )
+
+
+# 13) общая ошибка базы данных
+class DatabaseError(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=500,
+            code="database_error",
+            message="Unexpected database error occurred",
+            field=None,
+        )
