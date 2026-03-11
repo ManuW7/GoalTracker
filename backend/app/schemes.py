@@ -16,3 +16,15 @@ class Action(BaseModel):
   description: str
   date: datetime
   user_id: int
+
+class CreateUser(BaseModel):
+   username: str
+   password: str
+
+class LoginUser(BaseModel):
+   username: str
+   password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"

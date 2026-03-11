@@ -57,3 +57,27 @@ class ActionStorage:
                     Action.date.between(start, finish))
         result = session.execute(stmt).scalars().all()
         return result
+    
+class UserStorage:
+    def get(self, id : int, session : Session) -> User | None:
+        user = session.get(User, id)
+        return user
+    
+    def create(self, user : User, session : Session) -> User:
+        session.add(user)
+        session.flush()
+        # session.refresh(goal)
+        return user
+    
+    def delete(self, id : int, session : Session) -> User | None:
+        user = self.get(id, session)
+
+        if user is None: return None
+        
+        session.delete(user)
+        return user
+    
+    def get_by_username(self, username : str, session : Session) -> User | None:
+        stmt = select(User).where(User.username == username)
+        result = session.execute(stmt).scalar_one_or_none()
+        return result

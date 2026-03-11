@@ -149,3 +149,23 @@ class DatabaseError(AppError):
             message="Unexpected database error occurred",
             field=None,
         )
+
+# 14) пользователь с таким именем уже существует
+class UserAlreadyExists(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=409,
+            code="user_already_exists",
+            message="User with this username already exists",
+            field="username",
+        )
+
+# 15) неверный пароль
+class InvalidPassword(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=401,
+            code="invalid_password",
+            message="Incorrect password",
+            field="password",
+        )
