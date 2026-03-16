@@ -1,0 +1,87 @@
+.modalGoalsOutline {
+  background-color: rgba(128, 128, 128, 0.594);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalGoalsContent {
+  background-color: white;
+  border-radius: 25px;
+  padding: 25px 36px;
+  min-width: 400px;
+  font-family: "NTSomic";
+  font-size: 20px;
+}
+
+.modalGoalsContent .modalGoalsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalGoalsContent .modalGoalsHeader button {
+  display: flex;
+  background-color: transparent;
+  border: none;
+}
+
+.modalGoalsContent .modalGoalsHeader button:hover {
+  cursor: pointer;
+}
+
+.modalGoalsContent form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalGoalsContent form input {
+  width: 100%;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 2px solid #d0d0d0;
+}
+
+.modalGoalsContent form label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalGoalsContent form input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.modalGoalsContent form label p {
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: "NTSomic";
+  margin-bottom: 5px;
+}
+
+.modalGoalsContent form button {
+  margin-top: 20px;
+  background-color: var(--light-blue);
+  border: 1px solid transparent;
+  width: 100%;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 50px;
+}
+
+.modalGoalsContent form button:hover {
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: white;
+}

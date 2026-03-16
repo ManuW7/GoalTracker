@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./WeekCalendar.css";
 import Day from "./Day.tsx";
+import GoalNote from "./GoalNote.tsx";
+import type { Goal } from "../data/data.ts";
+import ModalAddGoal from "./ModalAddGoal.tsx";
 
 function normalizeWeekDay(day: number) {
   if (day > 0) {
@@ -11,7 +14,10 @@ function normalizeWeekDay(day: number) {
 }
 
 function WeekCalendar() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentGoals, setCurrentGoals] = useState<Goal[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   const currentweekDay = normalizeWeekDay(currentDate.getDay());
   const mondayDate = new Date(currentDate);
   mondayDate.setHours(0, 0, 0, 0);
@@ -53,6 +59,10 @@ function WeekCalendar() {
     setCurrentDate(weekForward);
   }
 
+  function addNewGoal() {
+    setModalOpen(true);
+  }
+
   const week: Date[] = [];
 
   for (let i = 0; i < 7; i++) {
@@ -60,6 +70,14 @@ function WeekCalendar() {
     date.setDate(date.getDate() + i);
     week.push(date);
   }
+
+  useEffect(() => {
+    fetch("http://83.136.235.118:8000/goals")
+      .then((res) => res.json())
+      .then((data) => setCurrentGoals(data));
+
+    console.log(currentGoals);
+  }, []);
 
   return (
     <div className="weekCalendarDiv">
@@ -74,7 +92,9 @@ function WeekCalendar() {
             </h3>
           ))}
         </div>
-        <button className="addGoalButton">+</button>
+        <button className="addGoalButton" onClick={addNewGoal}>
+          +
+        </button>
         <div className="arrowButtonsDiv">
           <button onClick={scrollWeekBack}>
             <img src="./src/assets/arrow-left.png" alt="" />
@@ -90,6 +110,14 @@ function WeekCalendar() {
           <Day day={d} key={index}></Day>
         ))}
       </div>
+      <hr />
+
+      <div className="goalsConainer">
+        <GoalNote></GoalNote>
+      </div>
+      {modalOpen ? (
+        <ModalAddGoal setIsModalOpen={setModalOpen}></ModalAddGoal>
+      ) : null}
     </div>
   );
 }

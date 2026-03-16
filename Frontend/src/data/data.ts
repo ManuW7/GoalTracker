@@ -1,17 +1,26 @@
 export type Goal = {
   id: number;
   name: string;
-  description: string;
   color: string;
+
   date_set: Date;
-  user_id: number;
+  deadline: Date;
+
+  everyday: boolean;
+
+  target_count: number;
+  current_count: number;
+
+  streak: number;
+  is_failed: boolean;
 };
 
 export type Action = {
   id: number;
-  name: string;
   goal_id: number;
+
+  name: string;
   description: string;
+
   date: Date;
-  user_id: number;
 };

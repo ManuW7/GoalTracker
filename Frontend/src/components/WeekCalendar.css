@@ -104,4 +104,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.weekDisplayDiv > * {
+  flex: 0 0 auto;
+  width: 60px;
+  text-align: center;
 }

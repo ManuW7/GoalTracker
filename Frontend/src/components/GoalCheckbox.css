@@ -1,0 +1,28 @@
+.goalCheckbox .actionCheckMark {
+  border: 2px solid var(--teal);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.goalCheckbox .actionCheckMark:hover {
+  cursor: pointer;
+}
+
+.goalCheckbox .actionCheckMark.active {
+  background-color: #38d08e;
+  border-color: #38d08e;
+}
+
+.goalCheckbox .actionCheckMark.unactive {
+  background-color: transparent;
+}
+
+.goalCheckbox .actionCheckMark.unactive svg {
+  display: none;
+}
+
+.goalCheckbox .actionCheckMark svg {
+  width: 16px;
+  height: 9px;
+}
