@@ -37,10 +37,10 @@
 }
 
 .modalGoalsContent form {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .modalGoalsContent form input {
@@ -63,11 +63,52 @@
   margin: 0;
 }
 
+.modalGoalsContent form .colorPickerLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalGoalsContent form .colorPickerLabel p {
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: "NTSomic";
+  margin-bottom: 5px;
+  max-width: 300px;
+}
+
+.modalGoalsContent form input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #d0d0d0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.modalGoalsContent form input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.modalGoalsContent form input[type="color"]::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+.modalGoalsContent form input[type="color"]::-moz-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
 .modalGoalsContent form label p {
   margin-left: 10px;
   font-size: 15px;
   font-family: "NTSomic";
   margin-bottom: 5px;
+  max-width: 300px;
 }
 
 .modalGoalsContent form button {

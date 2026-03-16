@@ -3,7 +3,10 @@ import "./WeekCalendar.css";
 import Day from "./Day.tsx";
 import GoalNote from "./GoalNote.tsx";
 import type { Goal } from "../data/data.ts";
-import ModalAddGoal from "./ModalAddGoal.tsx";
+
+interface weekCalendarProps {
+  modalOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 function normalizeWeekDay(day: number) {
   if (day > 0) {
@@ -13,10 +16,9 @@ function normalizeWeekDay(day: number) {
   return 6;
 }
 
-function WeekCalendar() {
+function WeekCalendar({ modalOpenSetter }: weekCalendarProps) {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [currentGoals, setCurrentGoals] = useState<Goal[]>([]);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const currentweekDay = normalizeWeekDay(currentDate.getDay());
   const mondayDate = new Date(currentDate);
@@ -60,7 +62,7 @@ function WeekCalendar() {
   }
 
   function addNewGoal() {
-    setModalOpen(true);
+    modalOpenSetter(true);
   }
 
   const week: Date[] = [];
@@ -71,13 +73,13 @@ function WeekCalendar() {
     week.push(date);
   }
 
-  useEffect(() => {
-    fetch("http://83.136.235.118:8000/goals")
-      .then((res) => res.json())
-      .then((data) => setCurrentGoals(data));
+  // useEffect(() => {
+  //   fetch("http://83.136.235.118:8000/goals")
+  //     .then((res) => res.json())
+  //     .then((data) => setCurrentGoals(data));
 
-    console.log(currentGoals);
-  }, []);
+  //   console.log(currentGoals);
+  // }, []);
 
   return (
     <div className="weekCalendarDiv">
@@ -115,9 +117,6 @@ function WeekCalendar() {
       <div className="goalsConainer">
         <GoalNote></GoalNote>
       </div>
-      {modalOpen ? (
-        <ModalAddGoal setIsModalOpen={setModalOpen}></ModalAddGoal>
-      ) : null}
     </div>
   );
 }
