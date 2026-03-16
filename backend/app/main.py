@@ -6,11 +6,12 @@ from sqlalchemy import text
 
 from app.db.session import get_db
 from app.services.errors import AppError
-from app.routers import goals, actions
+from app.routers import goals, actions, auth
 
 app = FastAPI()
 app.include_router(goals.router)
 app.include_router(actions.router)
+app.include_router(auth.router)
 
 origins = [
     "http://localhost:5173",

@@ -30,6 +30,14 @@ class GoalStorage:
         result = session.execute(stmt).scalars().all()
         return result
     
+    
+    def get_all_actions(self, id : int, session : Session) -> list[Action] | None:
+        goal = self.get(id, session)
+
+        if goal is None: return None
+        
+        return goal.actions
+    
 
 class ActionStorage:
     def get(self, id : int, session : Session) -> Action | None:

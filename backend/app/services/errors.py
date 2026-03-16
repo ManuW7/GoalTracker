@@ -18,7 +18,8 @@ class IdNotFound(AppError):
         )
 
 
-# 2) при POST id не равен -1
+# 2) при POST id не равен -1 
+# (устаревшее, так как теперь id не передается при создании)
 class InvalidPostId(AppError):
     def __init__(self):
         super().__init__(
@@ -36,7 +37,7 @@ class DateInPast(AppError):
             status_code=400,
             code="date_in_past",
             message="Date cannot be in the past",
-            field="date",
+            field=None,
         )
 
 
@@ -47,7 +48,7 @@ class DateInFuture(AppError):
             status_code=400,
             code="date_in_future",
             message="Date cannot be in the future",
-            field="date",
+            field=None,
         )
 
 
@@ -58,7 +59,7 @@ class InvalidTimezone(AppError):
             status_code=400,
             code="invalid_timezone",
             message="Date must be in UTC (+00:00)",
-            field="date",
+            field=None,
         )
 
 
@@ -73,7 +74,8 @@ class GoalNotFound(AppError):
         )
 
 
-# 7) user_id не существует
+# 7) user_id не существует 
+# (устаревшее, так как теперь user_id не передается при создании, а берется из токена)
 class UserNotFound(AppError):
     def __init__(self):
         super().__init__(
@@ -82,8 +84,6 @@ class UserNotFound(AppError):
             message="User ID does not exist",
             field="user_id",
         )
-
-# ---------- Database errors ----------
 
 # 8) нарушение внешнего ключа
 class ForeignKeyViolation(AppError):
@@ -168,4 +168,84 @@ class InvalidPassword(AppError):
             code="invalid_password",
             message="Incorrect password",
             field="password",
+        )
+
+# 16) неверный токен
+class InvalidToken(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=401,
+            code="invalid_token",
+            message="Invalid or expired token",
+            field="token",
+        )
+
+# 17) недостаточно прав для доступа к ресурсу
+class PermissionDenied(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=403,
+            code="permission_denied",
+            message="You do not have permission to access this resource",
+            field=None,
+        )
+
+# 18) deadline не может быть раньше date_set
+class DeadlineBeforeDateSet(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="deadline_before_date_set",
+            message="Deadline cannot be before date set",
+            field="deadline",
+        )
+
+# 19) action date не может быть раньше date_set
+class ActionBeforeGoal(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="action_before_goal",
+            message="Action date cannot be before goal date set",
+            field="date",
+        )
+
+# 20) action date не может быть позже deadline
+class ActionAfterDeadline(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="action_after_deadline",
+            message="Action date cannot be after goal deadline",
+            field="date",
+        )
+
+# 21) username не найден при попытке входа
+class UsernameNotFound(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=404,
+            code="username_not_found",
+            message="Username does not exist",
+            field="username",
+        )
+
+# 22) некорректный интервал дат (например, start >= finish)
+class InvalidInterval(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="invalid_interval",
+            message="Invalid date interval: start must be before finish",
+            field=None,
+        )
+
+# 23) ежедневная цель не может быть без дедлайна
+class EverydayGoalWithoutDeadline(AppError):
+    def __init__(self):
+        super().__init__(
+            status_code=400,
+            code="everyday_goal_without_deadline",
+            message="Everyday goal must have a deadline",
+            field="deadline",
         )

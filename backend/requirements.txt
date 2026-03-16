@@ -5,3 +5,4 @@ alembic
 psycopg2-binary
 pwdlib[argon2]
 python-jose[cryptography]
+python-multipart
