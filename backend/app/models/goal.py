@@ -19,12 +19,13 @@ class Goal(Base):
         index=True,
     )
 
-    name       : Mapped[str]        = mapped_column(String(255), nullable=False)
-    date_set   : Mapped[datetime]   = mapped_column(DateTime(timezone=True), nullable=False)
-    description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    color      : Mapped[str]        = mapped_column(String(7), nullable=False)
-
-
+    name         : Mapped[str]         = mapped_column(String(255), nullable=False)
+    date_set     : Mapped[datetime]    = mapped_column(DateTime(timezone=True), nullable=False)
+    description  : Mapped[str | None]  = mapped_column(Text, nullable=True)
+    color        : Mapped[str]         = mapped_column(String(7), nullable=False)
+    deadline     : Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    everyday     : Mapped[bool]        = mapped_column(nullable=False, default=False)
+    
     # created_at: Mapped[datetime] = mapped_column(
     #     DateTime(timezone=True),
     #     server_default=text("now()"),

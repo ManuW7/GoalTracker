@@ -8,9 +8,6 @@ from app.db.base import Base
 
 class Action(Base):
     __tablename__ = "actions"
-    __table_args__ = (
-        UniqueConstraint("goal_id", "name", name="uq_actions_goal_name"),
-    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     goal_id: Mapped[int] = mapped_column(
