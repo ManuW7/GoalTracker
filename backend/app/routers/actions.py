@@ -11,10 +11,10 @@ router = APIRouter(prefix = "/actions")
 action_editor = ActionService()
 
 @router.get("/", response_model=list[ActionResponse])
-def get_actions(start : datetime, finish : datetime, 
+def get_actions(goal_id : int, start : datetime, finish : datetime, 
                 db: Session = Depends(get_db),
                 user_id : int = Depends(get_current_user)):
-    return action_editor.get_actions(start, finish, user_id, db)
+    return action_editor.get_actions(goal_id, start, finish, user_id, db)
 
 @router.get("/{id}", response_model=ActionResponse)
 def get_action(id : int, db: Session = Depends(get_db), 

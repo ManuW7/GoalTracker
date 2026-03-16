@@ -113,8 +113,10 @@ class GoalService(BaseService):
         return self._ORM_to_GoalResponse(goal, ses)
     
     # TODO : add check for roles when they are implemented
-    def get_goals(self, user_id : int, ses: Session) -> list[GoalResponse]:
-        goals = goal_db.get_all_goals(user_id, ses)
+    def get_goals(self, user_id : int, 
+                  start : datetime | None, finish : datetime | None,
+                  ses: Session) -> list[GoalResponse]:
+        goals = goal_db.get_all_goals(user_id, start, finish, ses)
         goals = [self._ORM_to_GoalResponse(i, ses) for i in goals]
         return goals
     
@@ -214,7 +216,7 @@ class ActionService(BaseService):
             raise errors.PermissionDenied()
         return self._ORM_to_ActionResponse(action)
     
-    def get_actions(self, start : datetime, finish : datetime, 
+    def get_actions(self, goal_id : int, start : datetime, finish : datetime, 
                     user_id : int, ses: Session) -> list[ActionResponse]:
         if start.tzinfo is None or start.utcoffset() != timedelta(0):
             raise errors.InvalidTimezone()
@@ -222,7 +224,9 @@ class ActionService(BaseService):
             raise errors.InvalidTimezone()
         if start >= finish:
             raise errors.InvalidInterval()
-        actions = action_db.get_actions(user_id, start, finish, ses)
+        if goal_db.get(goal_id, ses) is None:
+            raise errors.GoalNotFound()
+        actions = action_db.get_actions(user_id, goal_id, start, finish, ses)
         actions = [self._ORM_to_ActionResponse(i) for i in actions]
         return actions 
 

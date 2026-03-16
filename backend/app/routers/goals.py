@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from app.services.service import GoalService
 from app.schemes import GoalCreate, GoalUpdate, GoalResponse
@@ -10,9 +11,10 @@ router = APIRouter(prefix = "/goals")
 goal_editor = GoalService()
 
 @router.get("/", response_model=list[GoalResponse])
-def get_goals(db: Session = Depends(get_db), 
-              user_id : int = Depends(get_current_user)):
-    return goal_editor.get_goals(user_id, db)
+def get_goals(start : datetime | None = None, finish : datetime | None = None,
+                db: Session = Depends(get_db), 
+                user_id : int = Depends(get_current_user)):
+    return goal_editor.get_goals(user_id, start, finish, db)
 
 @router.get("/{id}", response_model=GoalResponse)
 def get_goal(id : int, db: Session = Depends(get_db),
