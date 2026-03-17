@@ -25,6 +25,7 @@ class Goal(Base):
     color        : Mapped[str]         = mapped_column(String(7), nullable=False)
     deadline     : Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     everyday     : Mapped[bool]        = mapped_column(nullable=False, default=False)
+    target_count : Mapped[int | None]  = mapped_column(nullable=True)
     
     # created_at: Mapped[datetime] = mapped_column(
     #     DateTime(timezone=True),
