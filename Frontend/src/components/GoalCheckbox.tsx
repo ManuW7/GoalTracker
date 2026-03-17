@@ -1,9 +1,20 @@
+import { useState } from "react";
 import "./GoalCheckbox.css";
+import type { Action } from "../data/data";
+import ModalAddActions from "./ModalAddActions";
 
 function GoalCheckbox() {
+  const [todayActions, setTodayActions] = useState<Action[]>([]);
+  const [dayState, setDayState] = useState<"active" | "unactive">("unactive");
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+
+  function handleClick() {
+    setIsModalOpened(true);
+  }
+
   return (
     <div className="goalCheckbox">
-      <button className="actionCheckMark unactive">
+      <button className={`actionCheckMark ${dayState}`} onClick={handleClick}>
         <svg
           width="19"
           height="12"
@@ -20,6 +31,7 @@ function GoalCheckbox() {
           />
         </svg>
       </button>
+      {isModalOpened ? <ModalAddActions></ModalAddActions> : null}
     </div>
   );
 }

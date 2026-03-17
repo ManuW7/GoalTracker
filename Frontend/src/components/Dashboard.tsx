@@ -10,7 +10,12 @@ function Dashboard() {
   const [goals, setGoals] = useState<Goal[]>([]);
 
   useEffect(() => {
-    fetch("http://83.136.235.118:8000/goals")
+    const token = localStorage.getItem("token");
+    fetch("http://83.136.235.118:8000/goals", {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setGoals(data));
 
