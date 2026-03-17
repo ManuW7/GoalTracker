@@ -79,7 +79,7 @@ class GoalService(BaseService):
         finish_day = today if goal.deadline is None else min(today, goal.deadline.date())
         total_days = (finish_day - start_day).days + 1
 
-        actions = action_db.get_all_actions(goal_id, ses)
+        actions = goal_db.get_all_actions(goal_id, ses)
         actions_dates = dict() # date -> count of actions on this date
         for i in actions:
             date = i.date.date()
