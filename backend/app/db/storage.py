@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select, _or
+from sqlalchemy import select, or_
 from datetime import datetime
 
 from app.models.goal import Goal
@@ -30,7 +30,7 @@ class GoalStorage:
                       session : Session) -> list[Goal]:
         stmt = select(Goal).where(Goal.user_id == user_id)
         if start is not None:
-            stmt = stmt.where(_or(Goal.deadline >= start, Goal.deadline == None))
+            stmt = stmt.where(or_(Goal.deadline >= start, Goal.deadline == None))
         if finish is not None:
             stmt = stmt.where(Goal.date_set <= finish)
         result = session.execute(stmt).scalars().all()
