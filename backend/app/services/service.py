@@ -79,7 +79,7 @@ class GoalService(BaseService):
         finish_day = today if goal.deadline is None else min(today, goal.deadline.date())
         total_days = (finish_day - start_day).days + 1
 
-        actions = action_db.get_all_actions(goal_id, ses)
+        actions = goal_db.get_all_actions(goal_id, ses)
         actions_dates = dict() # date -> count of actions on this date
         for i in actions:
             date = i.date.date()
@@ -116,6 +116,14 @@ class GoalService(BaseService):
     def get_goals(self, user_id : int, 
                   start : datetime | None, finish : datetime | None,
                   ses: Session) -> list[GoalResponse]:
+        if start is not None:
+            if start.tzinfo is None or start.utcoffset() != timedelta(0):
+                raise errors.InvalidTimezone()
+        if finish is not None:
+            if finish.tzinfo is None or finish.utcoffset() != timedelta(0):
+                raise errors.InvalidTimezone()
+        if start is not None and finish is not None and start >= finish:
+            raise errors.InvalidInterval()
         goals = goal_db.get_all_goals(user_id, start, finish, ses)
         goals = [self._ORM_to_GoalResponse(i, ses) for i in goals]
         return goals
