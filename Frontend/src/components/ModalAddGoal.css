@@ -1,4 +1,4 @@
-.modalGoalsOutline {
+.modalOutline {
   background-color: rgba(128, 128, 128, 0.594);
   position: absolute;
   top: 0;
@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-.modalGoalsContent {
+.modalContent {
   background-color: white;
   border-radius: 25px;
   padding: 25px 36px;
@@ -19,31 +19,31 @@
   font-size: 20px;
 }
 
-.modalGoalsContent .modalGoalsHeader {
+.modalContent .modalGoalsHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.modalGoalsContent .modalGoalsHeader button {
+.modalContent .modalGoalsHeader button {
   display: flex;
   background-color: transparent;
   border: none;
 }
 
-.modalGoalsContent .modalGoalsHeader button:hover {
+.modalContent .modalGoalsHeader button:hover {
   cursor: pointer;
 }
 
-.modalGoalsContent form {
+.modalContent form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.modalGoalsContent form input {
+.modalContent form input {
   width: 100%;
   font-size: 15px;
   padding: 10px 15px;
@@ -51,26 +51,26 @@
   border: 2px solid #d0d0d0;
 }
 
-.modalGoalsContent form label:has(input[type="checkbox"]) {
+.modalContent form label:has(input[type="checkbox"]) {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.modalGoalsContent form input[type="checkbox"] {
+.modalContent form input[type="checkbox"] {
   width: 20px;
   height: 20px;
   margin: 0;
 }
 
-.modalGoalsContent form .colorPickerLabel {
+.modalContent form .colorPickerLabel {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
 
-.modalGoalsContent form .colorPickerLabel p {
+.modalContent form .colorPickerLabel p {
   margin-left: 10px;
   font-size: 15px;
   font-family: "NTSomic";
@@ -78,7 +78,7 @@
   max-width: 300px;
 }
 
-.modalGoalsContent form input[type="color"] {
+.modalContent form input[type="color"] {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -88,22 +88,22 @@
   -webkit-appearance: none;
 }
 
-.modalGoalsContent form input[type="color"]::-webkit-color-swatch-wrapper {
+.modalContent form input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
   border-radius: 50%;
 }
 
-.modalGoalsContent form input[type="color"]::-webkit-color-swatch {
+.modalContent form input[type="color"]::-webkit-color-swatch {
   border-radius: 50%;
   border: none;
 }
 
-.modalGoalsContent form input[type="color"]::-moz-color-swatch {
+.modalContent form input[type="color"]::-moz-color-swatch {
   border-radius: 50%;
   border: none;
 }
 
-.modalGoalsContent form label p {
+.modalContent form label p {
   margin-left: 10px;
   font-size: 15px;
   font-family: "NTSomic";
@@ -111,7 +111,7 @@
   max-width: 300px;
 }
 
-.modalGoalsContent form button {
+.modalContent form button {
   margin-top: 20px;
   background-color: var(--light-blue);
   border: 1px solid transparent;
@@ -121,7 +121,7 @@
   border-radius: 50px;
 }
 
-.modalGoalsContent form button:hover {
+.modalContent form button:hover {
   cursor: pointer;
   border: 1px solid black;
   background-color: white;

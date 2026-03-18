@@ -26,17 +26,36 @@ function ModalAddGoal({ setIsModalOpen, setGoals }: ModalAddGoals) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
+    const dateSet = new Date(formData.get("goalDate") as string);
+    const dateSetUTC = new Date(
+      Date.UTC(
+        dateSet.getUTCFullYear(),
+        dateSet.getUTCMonth(),
+        dateSet.getUTCDate(),
+      ),
+    ).toISOString();
+
     const payload: GoalPayload = {
       name: formData.get("goalName") as string,
       description: formData.get("goalDescription") as string,
       color: formData.get("goalColor") as string,
-      date_set: formData.get("goalDate") as string,
+      date_set: dateSetUTC,
       everyday: formData.get("isDaily") === "on",
     };
 
     if (formData.get("hasDeadline") === "on") {
-      const deadline = formData.get("goalDeadline");
-      if (deadline) payload.deadline = deadline as string;
+      const deadline = formData.get("goalDeadline") as string;
+      if (deadline) {
+        const deadlineDate = new Date(deadline);
+        payload.deadline = new Date(
+          Date.UTC(
+            deadlineDate.getUTCFullYear(),
+            deadlineDate.getUTCMonth(),
+            deadlineDate.getUTCDate(),
+          ),
+        ).toISOString();
+      }
     }
 
     if (formData.get("hasFixedAmount") === "on") {
@@ -44,27 +63,36 @@ function ModalAddGoal({ setIsModalOpen, setGoals }: ModalAddGoals) {
       if (target) payload.target_count = Number(target);
     }
 
+    const token = localStorage.getItem("token");
     fetch("http://83.136.235.118:8000/goals", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify(payload),
     })
-      .then((res) => {
-        if (!res.ok) throw new Error();
+      .then(async (res) => {
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          console.error("Ошибка сервера:", errorData);
+          throw new Error(errorData.detail || "Ошибка при создании цели");
+        }
         return res.json();
       })
       .then((newGoal) => {
         setGoals((prev) => [...prev, newGoal]);
         setStatus("success");
       })
-      .catch(() => setStatus("error"));
+      .catch((err) => {
+        console.error(err);
+        setStatus("error");
+      });
   }
 
   return (
-    <div className="modalGoalsOutline">
-      <div className="modalGoalsContent">
+    <div className="modalOutline">
+      <div className="modalContent">
         <div className="modalGoalsHeader">
           <h2>Создать цель</h2>
           <button onClick={() => setIsModalOpen(false)}>
