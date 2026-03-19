@@ -28,13 +28,8 @@ function ModalAddGoal({ setIsModalOpen, setGoals }: ModalAddGoals) {
     const formData = new FormData(e.currentTarget);
 
     const dateSet = new Date(formData.get("goalDate") as string);
-    const dateSetUTC = new Date(
-      Date.UTC(
-        dateSet.getUTCFullYear(),
-        dateSet.getUTCMonth(),
-        dateSet.getUTCDate(),
-      ),
-    ).toISOString();
+    dateSet.setHours(0, 0, 0, 0);
+    const dateSetUTC = dateSet.toISOString();
 
     const payload: GoalPayload = {
       name: formData.get("goalName") as string,
@@ -48,13 +43,8 @@ function ModalAddGoal({ setIsModalOpen, setGoals }: ModalAddGoals) {
       const deadline = formData.get("goalDeadline") as string;
       if (deadline) {
         const deadlineDate = new Date(deadline);
-        payload.deadline = new Date(
-          Date.UTC(
-            deadlineDate.getUTCFullYear(),
-            deadlineDate.getUTCMonth(),
-            deadlineDate.getUTCDate(),
-          ),
-        ).toISOString();
+        deadlineDate.setHours(23, 59, 59, 999);
+        payload.deadline = deadlineDate.toISOString();
       }
     }
 

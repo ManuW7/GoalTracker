@@ -18,8 +18,10 @@ function GoalCheckbox({
   goalID,
   date,
 }: GoalCheckboxProps) {
-  const [dayState, setDayState] = useState<"active" | "unactive">("unactive");
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+
+  const dayState: "active" | "unactive" =
+    actions.length > 0 ? "active" : "unactive";
 
   function handleClick() {
     if (!isActive) return;
@@ -55,6 +57,7 @@ function GoalCheckbox({
           setWeekActions={setWeekActions}
           actions={actions}
           setIsModalOpen={setIsModalOpened}
+          day={date}
         ></ModalAddActions>
       ) : null}
     </div>

@@ -10,6 +10,10 @@ interface GoalNoteProps {
 }
 
 function formatDate(date: Date): string {
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date passed to formatDate:", date);
+    return "";
+  }
   return date.toISOString();
 }
 
@@ -62,6 +66,18 @@ function GoalNote({ goal, weekStart, weekEnd }: GoalNoteProps) {
     return actionsMap;
   }, [weekActions]);
 
+  const filledDays = useMemo(() => {
+    let doneDays = 0;
+
+    for (const [, actions] of actionsByDate.entries()) {
+      if (actions.length > 0) {
+        doneDays++;
+      }
+    }
+
+    return doneDays;
+  }, [actionsByDate]);
+
   const goalDateSetTime = new Date(goal.date_set).setHours(0, 0, 0, 0);
   const goalDeadlineTime = goal.deadline
     ? new Date(goal.deadline).setHours(0, 0, 0, 0)
@@ -77,7 +93,7 @@ function GoalNote({ goal, weekStart, weekEnd }: GoalNoteProps) {
           ></div>
           <p className="goalName">{goal.name}</p>
         </div>
-        <div className="goalStat">{`6/7`}</div>
+        <div className="goalStat">{`${filledDays}/7`}</div>
       </div>
       <div className="weekActionsDiv">
         {days.map((day) => {

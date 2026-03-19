@@ -17,7 +17,11 @@ function Dashboard() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setGoals(data));
+      .then((data) => {
+        console.log("Fetched goals:", data);
+        setGoals(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => console.error("Failed to fetch goals:", err));
   }, []);
 
   return (

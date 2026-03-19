@@ -65,6 +65,8 @@ function WeekCalendar({ modalOpenSetter, allGoals }: weekCalendarProps) {
   }
 
   const currentGoals = useMemo(() => {
+    if (!Array.isArray(allGoals)) return [];
+
     const mondayTime = mondayDate.getTime();
     const sundayTime = sundayDate.getTime();
 
