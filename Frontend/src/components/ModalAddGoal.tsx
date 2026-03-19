@@ -64,7 +64,7 @@ function ModalAddGoal({ setIsModalOpen, setGoals }: ModalAddGoals) {
     }
 
     const token = localStorage.getItem("token");
-    fetch("http://83.136.235.118:8000/goals", {
+    fetch("https://goal-tracker.shop/goals", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

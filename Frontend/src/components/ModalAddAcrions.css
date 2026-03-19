@@ -1,0 +1,22 @@
+.modalContent .createActionButton {
+  width: 100%;
+  background-color: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+}
+
+.modalContent .createActionButton:hover {
+  background-color: var(--light-blue);
+  cursor: pointer;
+  border: 1px solid var(--teal);
+}
+
+.modalContent .actionsContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}

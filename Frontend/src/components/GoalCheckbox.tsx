@@ -3,18 +3,36 @@ import "./GoalCheckbox.css";
 import type { Action } from "../data/data";
 import ModalAddActions from "./ModalAddActions";
 
-function GoalCheckbox() {
-  const [todayActions, setTodayActions] = useState<Action[]>([]);
+interface GoalCheckboxProps {
+  isActive: boolean;
+  setWeekActions: React.Dispatch<React.SetStateAction<Action[]>>;
+  goalID: number;
+  date: Date;
+  actions: Action[];
+}
+
+function GoalCheckbox({
+  actions,
+  isActive,
+  setWeekActions,
+  goalID,
+  date,
+}: GoalCheckboxProps) {
   const [dayState, setDayState] = useState<"active" | "unactive">("unactive");
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
   function handleClick() {
+    if (!isActive) return;
     setIsModalOpened(true);
   }
 
   return (
     <div className="goalCheckbox">
-      <button className={`actionCheckMark ${dayState}`} onClick={handleClick}>
+      <button
+        className={`actionCheckMark ${isActive ? dayState : "disabled"}`}
+        onClick={handleClick}
+        disabled={!isActive}
+      >
         <svg
           width="19"
           height="12"
@@ -31,7 +49,14 @@ function GoalCheckbox() {
           />
         </svg>
       </button>
-      {isModalOpened ? <ModalAddActions></ModalAddActions> : null}
+      {isModalOpened ? (
+        <ModalAddActions
+          goalId={goalID}
+          setWeekActions={setWeekActions}
+          actions={actions}
+          setIsModalOpen={setIsModalOpened}
+        ></ModalAddActions>
+      ) : null}
     </div>
   );
 }

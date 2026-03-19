@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import "./WeekCalendar.css";
 import Day from "./Day.tsx";
 import GoalNote from "./GoalNote.tsx";
@@ -6,6 +6,7 @@ import type { Goal } from "../data/data.ts";
 
 interface weekCalendarProps {
   modalOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
+  allGoals: Goal[];
 }
 
 function normalizeWeekDay(day: number) {
@@ -16,17 +17,19 @@ function normalizeWeekDay(day: number) {
   return 6;
 }
 
-function WeekCalendar({ modalOpenSetter }: weekCalendarProps) {
+function WeekCalendar({ modalOpenSetter, allGoals }: weekCalendarProps) {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [currentGoals, setCurrentGoals] = useState<Goal[]>([]);
 
-  const currentweekDay = normalizeWeekDay(currentDate.getDay());
-  const mondayDate = new Date(currentDate);
-  mondayDate.setHours(0, 0, 0, 0);
-  mondayDate.setDate(mondayDate.getDate() - currentweekDay);
-  const sundayDate = new Date(currentDate);
-  sundayDate.setHours(23, 59, 59, 59);
-  sundayDate.setDate(sundayDate.getDate() + (6 - currentweekDay));
+  const { mondayDate, sundayDate } = useMemo(() => {
+    const currentweekDay = normalizeWeekDay(currentDate.getDay());
+    const monday = new Date(currentDate);
+    monday.setHours(0, 0, 0, 0);
+    monday.setDate(monday.getDate() - currentweekDay);
+    const sunday = new Date(currentDate);
+    sunday.setHours(23, 59, 59, 59);
+    sunday.setDate(sunday.getDate() + (6 - currentweekDay));
+    return { mondayDate: monday, sundayDate: sunday };
+  }, [currentDate]);
 
   const mondayMonth = mondayDate.getMonth();
   const sundayMonth = sundayDate.getMonth();
@@ -61,6 +64,20 @@ function WeekCalendar({ modalOpenSetter }: weekCalendarProps) {
     setCurrentDate(weekForward);
   }
 
+  const currentGoals = useMemo(() => {
+    const mondayTime = mondayDate.getTime();
+    const sundayTime = sundayDate.getTime();
+
+    return allGoals.filter((goal) => {
+      const goalStart = new Date(goal.date_set).getTime();
+      const goalEnd = goal.deadline
+        ? new Date(goal.deadline).getTime()
+        : Infinity;
+
+      return goalStart <= sundayTime && goalEnd >= mondayTime;
+    });
+  }, [allGoals, mondayDate, sundayDate]);
+
   function addNewGoal() {
     modalOpenSetter(true);
   }
@@ -72,14 +89,6 @@ function WeekCalendar({ modalOpenSetter }: weekCalendarProps) {
     date.setDate(date.getDate() + i);
     week.push(date);
   }
-
-  // useEffect(() => {
-  //   fetch("http://83.136.235.118:8000/goals")
-  //     .then((res) => res.json())
-  //     .then((data) => setCurrentGoals(data));
-
-  //   console.log(currentGoals);
-  // }, []);
 
   return (
     <div className="weekCalendarDiv">
@@ -115,7 +124,15 @@ function WeekCalendar({ modalOpenSetter }: weekCalendarProps) {
       <hr />
 
       <div className="goalsConainer">
-        <GoalNote></GoalNote>
+        {Array.isArray(currentGoals) &&
+          currentGoals.map((g) => (
+            <GoalNote
+              goal={g}
+              key={g.id}
+              weekEnd={sundayDate}
+              weekStart={mondayDate}
+            ></GoalNote>
+          ))}
       </div>
     </div>
   );

@@ -24,8 +24,8 @@ function Auth() {
     try {
       const endpoint =
         mode === "login"
-          ? "http://83.136.235.118:8000/auth/login"
-          : "http://83.136.235.118:8000/auth/reg";
+          ? "https://goal-tracker.shop/auth/login"
+          : "https://goal-tracker.shop/auth/reg";
 
       const response = await fetch(endpoint, {
         method: "POST",
